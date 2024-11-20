@@ -5,25 +5,25 @@ Now on mobile!
 
 ### Checklist Implementation Process
 1. Men-Generate Flutter Project
-    ```
+    ```bash
     flutter create sinar_abadi_mobile
     ```
 
-1. Menerapkan konsep Clean Architecture
+2. Menerapkan konsep Clean Architecture
     - Membuat file `menu.dart` dan memindahkan class `MyHomePage` ke dalamnya
     - Melakukan import `package:sinar_abadi_mobile/presentation/menu.dart` pada `main.dart`
         ```dart
         import 'package:sinar_abadi_mobile/menu.dart';
         ```
 
-1. Mengubah class `MyHomePage` menjadi `StatelessWidget`
+3. Mengubah class `MyHomePage` menjadi `StatelessWidget`
     ```dart
     class MyHomePage extends StatelessWidget {
         ...
     }
     ```
 
-1. Menambahkan teks selamat datang dan pengenalan owner pada `MyHomePage`
+4. Menambahkan teks selamat datang dan pengenalan owner pada `MyHomePage`
     ```dart
     class MyHomePage extends StatelessWidget {
         final String npm = '2306275954'; // NPM
@@ -56,7 +56,7 @@ Now on mobile!
     }
     ```
 
-1. Membuat button card sederhana dengan icon
+5. Membuat button card sederhana dengan icon
     - Membuat class `ItemHomePage` yang akan berisikan atribut dari button card
         ```dart
         class ItemHomepage {
@@ -85,16 +85,11 @@ Now on mobile!
             @override
             Widget build(BuildContext context) {
                 return Material(
-
                 color: item.color,
-
                 borderRadius: BorderRadius.circular(12),
-
                 child: InkWell(
-
                     // Bagian untuk menambahkan snackbar
                     ...
-
                     child: Container(
                     padding: const EdgeInsets.all(8),
                     child: Center(
@@ -119,7 +114,7 @@ Now on mobile!
                 ),
                 );
             }
-            }
+        }
         ```
     - Menampilkan snackbar ketika button ditekan
         ```dart
@@ -144,7 +139,7 @@ Now on mobile!
         )
         ```
 
-1. Menampilkan button card pada `MyHomePage`
+6. Menampilkan button card pada `MyHomePage`
     ```dart
     ...
     GridView.count(
@@ -153,13 +148,11 @@ Now on mobile!
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         crossAxisCount: 3,
-        
         shrinkWrap: true,
-
         children: items.map((ItemHomepage item) {
             return ItemCard(item);
         }).toList(),
-        ),
+    ),
     ...
     ```
 
@@ -219,13 +212,14 @@ Now on mobile!
     - Menampilkan ikon pada setiap card
     - Menggunakan Icons dari Flutter seperti Icons.list, Icons.add, Icons.logout
 
-- SnackBar
+- SnackBar:
     - Menampilkan pesan notifikasi ketika card ditekan
     - Kustomisasi dengan backgroundColor dan border radius
 
 - Center:
     - Mengatur posisi widget ke tengah
     - Digunakan untuk centering konten dalam card dan layout
+
 ### Apa fungsi dari setState()? Jelaskan variabel apa saja yang dapat terdampak dengan fungsi tersebut.
 Fungsi dari `setState()` adalah untuk memperbarui state dari widget dan membangun ulang widget tree. Variabel yang dapat terdampak oleh fungsi `setState()` adalah variabel yang digunakan dalam widget yang diubah nilainya. Contoh: variabel `items` yang digunakan dalam `MyHomePage` akan terdampak oleh fungsi `setState()` jika nilai variabel tersebut diubah.
 
@@ -235,11 +229,9 @@ Terdapat tiga perbedaan utama antara const dan final, yaitu dari segi waktu inis
 ## Tugas 8
 
 ### Apa kegunaan const di Flutter? Jelaskan apa keuntungan ketika menggunakan const pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?
-
 `const` di Flutter digunakan untuk mendeklarasikan nilai yang bersifat konstan dan tidak akan berubah. Keuntungan menggunakan `const` adalah meningkatkan performa aplikasi karena nilai yang bersifat konstan hanya akan diinisialisasi sekali dan disimpan dalam memori. Sebaiknya kita menggunakan `const` ketika nilai tersebut sudah diketahui pada saat kompilasi dan tidak akan berubah selama runtime. Namun, jika nilai tersebut baru diketahui saat runtime atau bisa berubah, maka `const` tidak dapat digunakan dan sebaiknya menggunakan `final`.
 
 ### Jelaskan dan bandingkan penggunaan Column dan Row pada Flutter. Berikan contoh implementasi dari masing-masing layout widget ini!
-
 `Column` dan `Row` adalah widget layout di Flutter yang digunakan untuk mengatur tata letak widget secara vertikal dan horizontal. `Column` mengatur widget secara vertikal dari atas ke bawah, sedangkan `Row` mengatur widget secara horizontal dari kiri ke kanan.
 
 Contoh implementasi `Column`:
@@ -265,11 +257,9 @@ Row(
 ```
 
 ### Sebutkan apa saja elemen input yang kamu gunakan pada halaman form yang kamu buat pada tugas kali ini. Apakah terdapat elemen input Flutter lain yang tidak kamu gunakan pada tugas ini? Jelaskan!
-
 Pada halaman form, elemen input yang digunakan antara lain `TextField` untuk input teks, `Checkbox` untuk pilihan biner, dan `DropdownButton` untuk pilihan dari daftar. Elemen input Flutter lain yang tidak digunakan pada tugas ini termasuk `Radio` untuk pilihan tunggal dari beberapa opsi, `Slider` untuk memilih nilai dalam rentang tertentu, dan `Switch` untuk pilihan on/off.
 
 ### Bagaimana cara kamu mengatur tema (theme) dalam aplikasi Flutter agar aplikasi yang dibuat konsisten? Apakah kamu mengimplementasikan tema pada aplikasi yang kamu buat?
-
 Untuk mengatur tema dalam aplikasi Flutter, kita dapat menggunakan `ThemeData` dan mendefinisikan tema global di dalam `MaterialApp`. Tema ini mencakup warna, font, dan gaya visual lainnya yang konsisten di seluruh aplikasi. Pada aplikasi yang saya buat, saya mengimplementasikan tema dengan mendefinisikan `primaryColor`, `accentColor`, dan `textTheme` di dalam `ThemeData`.
 
 ### Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?
@@ -316,3 +306,22 @@ Mengganti halaman saat ini dengan halaman baru menggunakan nama rute:
 Navigator.popAndPushNamed(context, '/halamanBaru');
 ```
 
+## Tugas 9
+
+### Jelaskan mengapa kita perlu membuat model untuk melakukan pengambilan ataupun pengiriman data JSON? Apakah akan terjadi error jika kita tidak membuat model terlebih dahulu?
+Membuat model untuk pengambilan atau pengiriman data JSON sangat penting karena model bertindak sebagai cetak biru yang memastikan data yang diterima atau dikirim sesuai dengan struktur yang diharapkan. Tanpa model, data yang tidak terstruktur atau tidak sesuai dapat menyebabkan error saat aplikasi mencoba memprosesnya, karena tidak ada jaminan bahwa data tersebut memiliki format yang benar atau lengkap.
+
+### Jelaskan fungsi dari library http yang sudah kamu implementasikan pada tugas ini
+Library http dalam Dart digunakan untuk melakukan permintaan HTTP ke server, seperti GET, POST, PUT, dan DELETE. Ini memungkinkan aplikasi Flutter untuk berkomunikasi dengan API atau server backend, mengambil data dari server, mengirim data ke server, dan mengelola respons yang diterima. Dengan menggunakan library ini, pengembang dapat dengan mudah mengintegrasikan fungsionalitas jaringan ke dalam aplikasi mereka.
+
+### Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.
+CookieRequest digunakan untuk mengelola sesi pengguna dengan menyimpan dan mengirimkan cookie yang diperlukan untuk autentikasi dan otorisasi. Dengan membagikan instance CookieRequest ke semua komponen di aplikasi Flutter, kita memastikan bahwa semua permintaan HTTP yang memerlukan autentikasi menggunakan sesi yang sama, sehingga pengguna tetap terautentikasi dan dapat mengakses data atau fitur yang memerlukan login tanpa harus login ulang.
+
+### Jelaskan mekanisme pengiriman data mulai dari input hingga dapat ditampilkan pada Flutter.
+Mekanisme pengiriman data dimulai dari input pengguna di aplikasi Flutter, yang kemudian dikirim ke server melalui permintaan HTTP menggunakan library seperti http. Server memproses data tersebut dan mengirimkan respons kembali ke aplikasi. Aplikasi Flutter kemudian menerima respons ini, memprosesnya (misalnya, mengubah JSON menjadi model), dan menampilkan data yang relevan kepada pengguna melalui widget yang sesuai.
+
+### Jelaskan mekanisme autentikasi dari login, register, hingga logout. Mulai dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.
+Mekanisme autentikasi dimulai dengan pengguna memasukkan data akun pada Flutter, yang kemudian dikirim ke server Django melalui permintaan HTTP. Untuk login, server memverifikasi kredensial dan mengembalikan token atau cookie sesi jika berhasil. Untuk register, server membuat akun baru dan mengembalikan respons yang sesuai. Saat logout, permintaan dikirim ke server untuk menghapus sesi. Setelah autentikasi berhasil, Flutter menampilkan menu atau halaman yang sesuai berdasarkan status login pengguna.
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial).
+Implementasi checklist dimulai dengan membuat model data untuk JSON, kemudian mengintegrasikan library http untuk melakukan permintaan HTTP. Selanjutnya, buat CookieRequest untuk mengelola sesi dan bagikan instance-nya ke seluruh komponen aplikasi. Implementasikan mekanisme pengiriman data dengan menangani input pengguna dan menampilkan respons dari server. Terakhir, tambahkan fitur autentikasi dengan membuat form login dan register, mengirim data ke server Django, dan mengelola sesi pengguna untuk login, register, dan logout.

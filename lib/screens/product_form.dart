@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:sinar_abadi_mobile/screens/menu.dart';
 import 'package:sinar_abadi_mobile/widgets/left_drawer.dart';
 
 class ProductFormPage extends StatefulWidget {
@@ -17,6 +22,8 @@ class _ProductFormPageState extends State<ProductFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -26,7 +33,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
           ),
           // App logo on appbar center
           child: Image.asset(
-            'images/big-logo.png',
+            'assets/images/big-logo.png',
             fit: BoxFit.contain,
             height: kToolbarHeight - 24.0,
           ),
@@ -39,7 +46,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
 
       body: Container(
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             // Background gradient
             begin: Alignment.topCenter,
@@ -121,7 +128,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                       child: Column(
                         children: [
                           _buildInputField(
-                            label: "Product Name",
+                            label: "Product",
                             onChanged: (value) =>
                                 setState(() => _name = value!),
                             validator: (value) {
@@ -195,53 +202,40 @@ class _ProductFormPageState extends State<ProductFormPage> {
                           ),
                           elevation: 2,
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  title: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.check_circle,
-                                        color: Colors.green[400],
-                                        size: 24,
-                                      ),
-                                      const SizedBox(width: 8),
-                                      const Text('Success!'),
-                                    ],
-                                  ),
-                                  content: SingleChildScrollView(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        _buildDialogRow("Product Name", _name),
-                                        _buildDialogRow(
-                                            "Description", _description),
-                                        _buildDialogRow("Color", _color),
-                                        _buildDialogRow(
-                                            "Price", "Rp${_price.toString()}"),
-                                      ],
-                                    ),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      child: const Text('OK'),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        _formKey.currentState!.reset();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
+                            // Kirim ke Django dan tunggu respons
+                            // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                            final response = await request.postJson(
+                              "http://10.0.2.2/create-flutter/",
+                              jsonEncode(<String, String>{
+                                'name': _name,
+                                'description': _description,
+                                'color': _color,
+                                'price': _price.toString(),
+                                // TODO: Sesuaikan field data sesuai dengan aplikasimu
+                              }),
                             );
+                            if (context.mounted) {
+                              if (response['status'] == 'success') {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content:
+                                      Text("Produk baru berhasil disimpan!"),
+                                ));
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyHomePage()),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text(
+                                      "Terdapat kesalahan, silakan coba lagi."),
+                                ));
+                              }
+                            }
                           }
                         },
                         child: const Row(
@@ -296,7 +290,7 @@ Widget _buildInputField({
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           color: Color(0xFFA2D2FF),
           width: 2,
         ),
@@ -340,7 +334,7 @@ Widget _buildDialogRow(String label, String value) {
             fontWeight: FontWeight.w500,
           ),
         ),
-        Divider(),
+        const Divider(),
       ],
     ),
   );

@@ -29,7 +29,7 @@ class MyHomePage extends StatelessWidget {
           ),
           // App logo on appbar center
           child: Image.asset(
-            'images/big-logo.png',
+            'assets/images/big-logo.png',
             fit: BoxFit.contain,
             height: kToolbarHeight - 24.0,
           ),
@@ -39,7 +39,7 @@ class MyHomePage extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             // Background gradient
             begin: Alignment.topCenter,
@@ -76,7 +76,7 @@ class MyHomePage extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            Text(
+                            const Text(
                               'Selamat Datang di',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -91,7 +91,7 @@ class MyHomePage extends StatelessWidget {
                                 style: GoogleFonts.oswald(
                                   fontSize: 32.0,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFFFF865E),
+                                  color: const Color(0xFFFF865E),
                                 )),
                             const SizedBox(height: 16.0),
                             Text(

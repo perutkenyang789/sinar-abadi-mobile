@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sinar_abadi_mobile/screens/list_product.dart';
 import 'package:sinar_abadi_mobile/screens/menu.dart';
 import 'package:sinar_abadi_mobile/screens/product_form.dart';
 
@@ -101,7 +102,24 @@ class LeftDrawer extends StatelessWidget {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProductFormPage(),
+                    builder: (context) => const ProductFormPage(),
+                  ),
+                );
+              },
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Divider(color: Colors.white24),
+            ),
+            _buildMenuItem(
+              context,
+              icon: Icons.add_box_outlined,
+              title: 'Daftar Produk',
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProductPage(),
                   ),
                 );
               },
