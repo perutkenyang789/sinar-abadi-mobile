@@ -325,3 +325,9 @@ Mekanisme autentikasi dimulai dengan pengguna memasukkan data akun pada Flutter,
 
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial).
 Implementasi checklist dimulai dengan membuat model data untuk JSON, kemudian mengintegrasikan library http untuk melakukan permintaan HTTP. Selanjutnya, buat CookieRequest untuk mengelola sesi dan bagikan instance-nya ke seluruh komponen aplikasi. Implementasikan mekanisme pengiriman data dengan menangani input pengguna dan menampilkan respons dari server. Terakhir, tambahkan fitur autentikasi dengan membuat form login dan register, mengirim data ke server Django, dan mengelola sesi pengguna untuk login, register, dan logout.
+
+### Build Badge
+[![Build status](https://build.appcenter.ms/v0.1/apps/7cb4ba38-e9e6-4d8a-b726-b50cb38a11a4/branches/main/badge)](https://appcenter.ms)
+
+### App Publication
+[Download APK](https://install.appcenter.ms/orgs/toko-sinar-abadi/apps/sinar-abadi/distribution_groups/public/releases/1)
